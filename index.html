@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For the Cutest Girl 🤭💖</title>
+
+    <style>
+        :root {
+            --bg1: #ffe6f0;
+            --bg2: #ffd1e8;
+            --card: rgba(255, 255, 255, 0.75);
+            --text: #333;
+            --pink: #ff6b9c;
+        }
+
+        body.dark {
+            --bg1: #1b1b2f;
+            --bg2: #16213e;
+            --card: rgba(0, 0, 0, 0.6);
+            --text: #fff;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom, var(--bg1), var(--bg2));
+            color: var(--text);
+            text-align: center;
+            transition: .5s;
+        }
+
+        /* Header */
+        h1 {
+            margin-top: 40px;
+            font-size: 3em;
+            min-height: 1.2em;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            background: var(--pink);
+            margin-left: 2px;
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            50%,
+            100% {
+                opacity: 1
+            }
+
+            25%,
+            75% {
+                opacity: 0
+            }
+        }
+
+        /* Card */
+        .card {
+            margin: 30px auto;
+            padding: 28px;
+            max-width: 950px;
+            background: var(--card);
+            backdrop-filter: blur(14px);
+            border-radius: 28px;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, .25);
+        }
+
+        /* Buttons */
+        .toggle,
+        .music-btn {
+            position: fixed;
+            top: 15px;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            background: var(--pink);
+            color: white;
+        }
+
+        .toggle {
+            right: 15px
+        }
+
+        .music-btn {
+            left: 15px
+        }
+
+        /* Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+            margin-top: 25px;
+        }
+
+        .photo-card {
+            position: relative;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 22px 45px rgba(0, 0, 0, .35);
+        }
+
+        /* Image */
+        .photo-card img {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform .6s ease, opacity .4s ease;
+        }
+
+        .photo-card:hover img {
+            transform: scale(1.15);
+            filter: brightness(.85);
+        }
+
+        .fade {
+            opacity: 0;
+        }
+
+        .photo-info {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 22px;
+            background: linear-gradient(to top, rgba(0, 0, 0, .75), transparent);
+            color: white;
+            text-align: left;
+        }
+
+        .photo-info h3 {
+            margin: 0;
+            font-size: 1.3em;
+            color: #ffd6e8;
+        }
+
+        .photo-info p {
+            margin: 6px 0 0;
+            font-size: .95em;
+            opacity: .95;
+        }
+
+        /* Gift Button */
+        .gift-box {
+            width: 120px;
+            height: 120px;
+            margin: 35px auto;
+            background: linear-gradient(135deg, #ff6b9c, #ff99c8);
+            border-radius: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            cursor: pointer;
+            color: white;
+            box-shadow: 0 18px 40px rgba(255, 107, 156, .6);
+            transition: .3s;
+            position: relative;
+            z-index: 2;
+        }
+
+        .gift-box span {
+            font-size: .75em;
+            margin-top: 6px;
+        }
+
+        .gift-box.active {
+            animation: giftBounce 0.5s ease forwards;
+        }
+
+        @keyframes giftBounce {
+            0% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-15px)
+            }
+
+            100% {
+                transform: translateY(0)
+            }
+        }
+
+        .gift-message {
+            display: none;
+            margin: 30px auto;
+            max-width: 500px;
+            padding: 30px;
+            background: rgba(255, 255, 255, .8);
+            backdrop-filter: blur(14px);
+            border-radius: 25px;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, .25);
+            font-size: 1.05em;
+        }
+
+        body.dark .gift-message {
+            background: rgba(0, 0, 0, .65);
+            color: white;
+        }
+
+        /* Effects container */
+        #effects {
+            pointer-events: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 999
+        }
+
+        /* Footer */
+        footer {
+            margin: 25px;
+            opacity: .8
+        }
+
+        /* Mobile */
+        @media(max-width:600px) {
+            h1 {
+                font-size: 2em
+            }
+
+            .photo-card img {
+                height: 320px
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <button class="music-btn" onclick="toggleMusic()">🎵 Music</button>
+    <button class="toggle" onclick="toggleMode()">🌙 Mode</button>
+
+    <h1 id="typing"></h1><span class="cursor"></span>
+
+    <div class="card">
+        <p style="font-size:1.15em;">
+            I know New Year is <b>tomorrow</b>…<br>
+            but I couldn’t wait to wish<br>
+            <b>the cutest girl 🤭💖</b>
+        </p>
+        <p style="opacity:.9;">(Tap or hover on photos 🤍)</p>
+    </div>
+
+    <!-- IMAGE SECTION -->
+    <div class="card">
+        <h2 style="color:var(--pink);">Cute Moments 💕</h2>
+        <div class="gallery">
+            <div class="photo-card"><img src="img3.png" data-alt="glb3.jpeg" onclick="switchImage(this)">
+                <div class="photo-info">
+                    <h3>That Smile 🌸</h3>
+                    <p>Tap / Hover to see more 🤭</p>
+                </div>
+            </div>
+            <div class="photo-card"><img src="img2.png" data-alt="glb2.jpeg" onclick="switchImage(this)">
+                <div class="photo-info">
+                    <h3>Just Her 🤍</h3>
+                    <p>Effortlessly cute ✨</p>
+                </div>
+            </div>
+            <div class="photo-card"><img src="img.png" data-alt="glb.jpeg" onclick="switchImage(this)">
+                <div class="photo-info">
+                    <h3>Pure Vibes 🤗🌷</h3>
+                    <p>Soft & beautiful</p>
+                </div>
+            </div>
+            <div class="photo-card"><img src="img5.png" data-alt="glb5.jpeg" onclick="switchImage(this)">
+                <div class="photo-info">
+                    <h3>Pure Vibes 🤗🌷</h3>
+                    <p>Soft & beautiful</p>
+                </div>
+            </div>
+            <div class="photo-card"><img src="img6.png" data-alt="glb6.jpeg" onclick="switchImage(this)">
+                <div class="photo-info">
+                    <h3>Pure Vibes 🤗🌷</h3>
+                    <p>Soft & beautiful</p>
+                </div>
+            </div>
+            <div class="photo-card"><img src="img4.png" data-alt="glb4.jpeg" onclick="switchImage(this)">
+                <div class="photo-info">
+                    <h3>Pure Vibes 🤗🌷</h3>
+                    <p>Soft & beautiful</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GIFT BUTTON -->
+    <div class="gift-box" id="giftBtn">🎁<span>Tap to Open</span></div>
+    <div class="gift-message" id="giftMsg"></div>
+
+    <!-- EFFECTS -->
+    <div id="effects"></div>
+
+    <footer>Made with ❤️ for the cutest girl</footer>
+
+    <audio id="music" loop>
+        <source src="mucic.aac" type="audio/aac">
+    </audio>
+
+    <script>
+        /* Typing Header */
+        const text = "Happy New Year, Radha & krishna 🎆";
+        let index = 0;
+        function typeWriter() {
+            if (index < text.length) {
+                document.getElementById("typing").innerHTML += text.charAt(index);
+                index++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+        typeWriter();
+
+        /* Dark Mode */
+        function toggleMode() { document.body.classList.toggle("dark"); }
+
+        /* Music */
+        const music = document.getElementById("music");
+        function toggleMusic() { music.paused ? music.play() : music.pause(); }
+
+        /* Image Switch */
+        function switchImage(img) {
+            img.classList.add("fade");
+            setTimeout(() => {
+                const old = img.src;
+                img.src = img.dataset.alt;
+                img.dataset.alt = old;
+                img.classList.remove("fade");
+            }, 200);
+        }
+
+        /* Gift Open + Typewriter Message + Sparkles */
+        const giftBtn = document.getElementById("giftBtn");
+        const giftMsg = document.getElementById("giftMsg");
+        giftBtn.addEventListener("click", () => {
+            giftBtn.classList.add("active");
+            giftMsg.innerHTML = "";
+            giftMsg.style.display = "block";
+            if (navigator.vibrate) { navigator.vibrate(200); }
+            launchEffects();
+            launchFireworks();
+            launchStarsHearts();
+            setTimeout(() => giftBtn.classList.remove("active"), 600);
+
+            // Typewriter for gift message
+            const msgText = `Surprise 🤭💖\nThis little gift is for the cutest girl ever 🌸\nMay your smile stay the same in every new year 🎆\nEk tum hi ho jisse dil khol kar baat karne ka mann karta hai 😊\nYou are my favorite person 💖`;
+            let idx = 0;
+            function typeMsg() {
+                if (idx < msgText.length) {
+                    giftMsg.innerHTML += msgText.charAt(idx) === "\n" ? "<br>" : msgText.charAt(idx);
+                    idx++;
+                    setTimeout(typeMsg, 50);
+                }
+            }
+            typeMsg();
+        });
+
+        /* Confetti + Hearts */
+        function launchEffects() {
+            const container = document.getElementById("effects");
+            for (let i = 0; i < 100; i++) {
+                const el = document.createElement("div");
+                el.style.position = "absolute";
+                el.style.width = "10px";
+                el.style.height = "10px";
+                el.style.background = Math.random() > 0.5 ? "#ff6b9c" : "#ffd6e8";
+                el.style.borderRadius = "50%";
+                el.style.left = Math.random() * 100 + "%";
+                el.style.top = "-10px";
+                el.style.opacity = 0.8;
+                el.style.pointerEvents = "none";
+                el.style.animation = `fall ${2 + Math.random() * 2}s linear forwards`;
+                container.appendChild(el);
+                setTimeout(() => container.removeChild(el), 4000);
+            }
+        }
+
+        /* Fireworks */
+        function launchFireworks() {
+            const container = document.getElementById("effects");
+            for (let i = 0; i < 10; i++) {
+                const fw = document.createElement("div");
+                fw.style.position = "absolute";
+                fw.style.width = "8px";
+                fw.style.height = "8px";
+                fw.style.borderRadius = "50%";
+                fw.style.background = "#ffd700";
+                fw.style.left = Math.random() * window.innerWidth + "px";
+                fw.style.top = Math.random() * window.innerHeight / 2 + "px";
+                fw.style.opacity = 0.9;
+                fw.style.pointerEvents = "none";
+                fw.style.animation = `fire ${1 + Math.random() * 1.5}s ease-out forwards`;
+                container.appendChild(fw);
+                setTimeout(() => container.removeChild(fw), 2000);
+            }
+        }
+
+        /* Stars + Hearts Rain */
+        function launchStarsHearts() {
+            const container = document.getElementById("effects");
+            const emojis = ["✨", "💖", "💘", "💞"];
+            for (let i = 0; i < 30; i++) {
+                const el = document.createElement("div");
+                el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                el.style.position = "absolute";
+                el.style.fontSize = 16 + Math.random() * 12 + "px";
+                el.style.left = Math.random() * 100 + "%";
+                el.style.top = "-20px";
+                el.style.opacity = Math.random();
+                el.style.pointerEvents = "none";
+                el.style.animation = `emojiFall ${2 + Math.random() * 3}s linear forwards`;
+                container.appendChild(el);
+                setTimeout(() => container.removeChild(el), 4000);
+            }
+        }
+
+        /* Animations */
+        const style = document.createElement('style');
+        style.innerHTML = `
+@keyframes fall{to{transform:translateY(100vh) rotate(360deg);}}
+@keyframes fire{0%{transform:translateY(0) scale(1);opacity:1;}100%{transform:translateY(-50px) scale(2);opacity:0;}}
+@keyframes emojiFall{to{transform:translateY(100vh);opacity:0;}}`;
+        document.head.appendChild(style);
+    </script>
+</body>
+
+</html>
